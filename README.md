@@ -1,36 +1,83 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# クイズシェア
 
-## Getting Started
+Vercel Postgresを使用したクイズアプリケーション
 
-First, run the development server:
+## 機能
+
+- **クイズ挑戦**: ランダムに表示されるクイズに答える
+- **クイズ投稿**: 自分で作成したクイズを投稿
+- **ランキング**: 開示文字数が少ないほど上位
+- **回答履歴**: 自分の回答済みクイズを確認
+- **Cookie認証**: ニックネーム登録のみで利用可能（ログイン不要）
+
+## 技術スタック
+
+- **フロントエンド**: Next.js 16 + React 19 + TailwindCSS
+- **バックエンド**: Next.js API Routes
+- **データベース**: Vercel Postgres
+- **認証**: Cookie ベース（UUID生成）
+
+## セットアップ
+
+### ローカル開発
 
 ```bash
+# パッケージをインストール
+npm install
+
+# 環境変数を設定
+# .env.local に POSTGRES_URLCONNECT を設定
+
+# ローカルサーバーを起動
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`http://localhost:3000` でアプリにアクセス
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Vercelへのデプロイ
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[DEPLOYMENT.md](./DEPLOYMENT.md) を参照してください。
 
-## Learn More
+## ファイル構成
 
-To learn more about Next.js, take a look at the following resources:
+```
+app/
+  api/
+    profile/route.ts          # プロフィール管理
+    user/route.ts             # ユーザー情報取得
+    quiz/
+      post/route.ts           # クイズ投稿
+      random/route.ts         # ランダムクイズ取得
+      answer/route.ts         # 回答記録
+      my-list/route.ts        # 回答履歴取得
+  components/
+    NicknameForm.tsx          # ニックネーム登録
+    QuizForm.tsx              # クイズ投稿フォーム
+    QuizPlay.tsx              # クイズプレイ画面
+    MyQuizList.tsx            # 回答履歴表示
+  page.tsx                    # メインページ
+lib/
+  auth.ts                     # Cookie認証ユーティリティ
+  db.ts                       # データベースクエリ
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 使い方
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. **初回アクセス**: ニックネームを登録
+2. **クイズ挑戦**: 「クイズ挑戦」タブからランダムなクイズに答える
+3. **クイズ投稿**: 「クイズ投稿」タブから問題と答えを投稿
+4. **回答確認**: 「回答履歴」タブで過去の回答を確認
 
-## Deploy on Vercel
+## データベース
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Vercel Postgresを使用。以下のテーブルが必要：
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `profiles`: ユーザー情報（ID、ニックネーム）
+- `quiz_posts`: クイズ投稿（ID、出題者ID、問題、答え）
+- `quiz_answers`: 回答履歴（ID、回答者ID、クイズID、開示文字数、回答、正否）
+
+詳細は [DEPLOYMENT.md](./DEPLOYMENT.md) を参照。
+
+## ライセンス
+
+MIT
