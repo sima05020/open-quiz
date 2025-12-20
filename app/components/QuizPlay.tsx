@@ -130,7 +130,6 @@ export default function QuizPlay({
     return (
         <div className='space-y-4 text-white'>
             <div className='bg-gray-800 p-4 rounded'>
-                <p className='text-lg font-bold mb-4'>{question}</p>
 
                 {mode === 'play' && !answered && (
                     <div className='mb-4'>
@@ -143,8 +142,8 @@ export default function QuizPlay({
                                     key={idx}
                                     onClick={() => handleReveal(idx)}
                                     className={`w-10 h-10 rounded font-bold ${revealed[idx]
-                                            ? 'bg-green-600 text-white'
-                                            : 'bg-gray-600 text-gray-400'
+                                        ? 'bg-green-600 text-white'
+                                        : 'bg-gray-600 text-gray-400'
                                         }`}
                                 >
                                     {revealed[idx] ? char : '?'}
