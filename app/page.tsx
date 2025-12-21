@@ -102,9 +102,9 @@ export default function Page() {
       {/* ヘッダー */}
       <div className='flex justify-between items-center mb-6'>
         <div>
-          <h1 className='text-2xl font-bold'>クイズシェア</h1>
+          <h1 className='text-2xl font-bold'>指定文字オープンクイズ</h1>
           <p className='text-gray-400'>ユーザーID: {user.userId.slice(0, 8)}...</p>
-          <p className='text-gray-300'>ニックネーム: {user.profile?.nickname}</p>
+          <p className='text-gray-300'>ユーザーネーム: {user.profile?.nickname}</p>
         </div>
       </div>
 
@@ -172,7 +172,7 @@ export default function Page() {
 
         {activeTab === 'play' && !quiz && (
           <div className='bg-gray-800 p-4 rounded text-center'>
-            <p className='text-gray-400 mb-4'>回答できるクイズがあります！</p>
+            <p className='text-gray-400 mb-4'>回答できるクイズがありません...</p>
             <button
               onClick={fetchRandomQuiz}
               className='px-4 py-2 bg-blue-600 rounded hover:bg-blue-700'
