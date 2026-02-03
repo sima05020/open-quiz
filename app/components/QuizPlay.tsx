@@ -158,7 +158,7 @@ export default function QuizPlay({
                                 setAnswer(e.target.value);
                                 setError(null);
                             }}
-                            placeholder='答えを入力'
+                            placeholder='答えを入力(カタカナ、全角英字のみ)'
                             className='w-full px-3 py-2 rounded bg-gray-700 text-white border border-gray-600 mb-2'
                         />
 
